@@ -1,0 +1,30 @@
+<head>
+  <title>Chat</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Messages</h1>
+      {{> loginButtons}}
+    </header>
+
+{{#if currentUser}}
+    <form class="new-message">
+      <input type="text" name="text" placeholder="Hi..." />
+    </form>
+
+    <ul>
+      {{#each messages}}
+        {{> message}}
+      {{/each}}
+    </ul>
+    {{else}}
+    <p>You need to sign in.</p>
+    {{/if}}
+  </div>
+</body>
+
+<template name="message">
+  <li><strong>{{createdBy}}:</strong>{{text}}</li>
+</template>
