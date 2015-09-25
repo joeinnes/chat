@@ -3,6 +3,9 @@
 </head>
 
 <body>
+  {{#unless Template.bodyReady}}
+    {{> loading}}
+  {{/unless}}
   <div class="container">
     <header>
       <h1>Messages</h1>
@@ -10,10 +13,9 @@
     </header>
 
 {{#if currentUser}}
-    <form class="new-message">
-      <input type="text" name="text" placeholder="Hi..." />
+    <form class="new-message pure-form">
+      <input type="text" name="text" placeholder="Hi {{currentUser.username}}..." class="pure-input-1"/>
     </form>
-
     <ul>
       {{#each messages}}
         {{> message}}
@@ -26,5 +28,11 @@
 </body>
 
 <template name="message">
-  <li><strong>{{createdBy}}:</strong>{{text}}</li>
+  <div class="bubble{{#if usersOwn currentUser.username createdBy}} bubble-alt{{/if}}"><div class="pull-left">{{> avatar user=this shape="circle"}}</div>{{text}}<br /><small class="time">{{createdBy}} - {{createdAtTime createdAt}}</small></div>
+</template>
+
+<template name="loading">
+  <div>
+    {{> spinner}}
+  </div>
 </template>
