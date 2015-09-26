@@ -14,14 +14,15 @@ if (Meteor.isClient) {
   });
 
   Template.loading.onRendered(function() {
-    Accounts.onLogin(function() {
+    /* Accounts.onLogin(function() {
       var userEmail = Meteor.user().emails[0].address;
       Session.set('documentLoading', false);
       Session.set('userImage', Gravatar.imageUrl(userEmail, {
         size: 34,
         default: 'mm'
       }));
-    });
+    }); */
+    Session.set('loading', false);
   });
 
   Template.message.helpers({
@@ -78,7 +79,7 @@ Meteor.methods({
     Messages.insert({
       text: text,
       createdAt: new Date(),
-      createdBy: Meteor.user().username
+      createdBy: Meteor.user(),
     });
   },
 });

@@ -3,9 +3,9 @@
 </head>
 
 <body>
-  {{#unless Template.bodyReady}}
+  {{#if loading}}
     {{> loading}}
-  {{/unless}}
+  {{/if}}
   <div class="container">
     <header>
       <h1>Messages</h1>
@@ -28,7 +28,7 @@
 </body>
 
 <template name="message">
-  <div class="bubble{{#if usersOwn currentUser.username createdBy}} bubble-alt{{/if}}"><div class="pull-left">{{> avatar user=this shape="circle"}}</div>{{text}}<br /><small class="time">{{createdBy}} - {{createdAtTime createdAt}}</small></div>
+  <div class="bubble{{#if usersOwn currentUser.username createdBy.username}} bubble-alt{{/if}}"><div class="pull-left">{{> avatar user=createdBy shape="circle"}}</div>{{text}}<br /><small class="time">{{createdBy.username}} - {{createdAtTime createdAt}}</small></div>
 </template>
 
 <template name="loading">
