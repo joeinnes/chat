@@ -58,7 +58,8 @@ if (Meteor.isClient) {
   });
 
   Accounts.ui.config({
-    passwordSignupFields: "USERNAME_AND_EMAIL"
+    passwordSignupFields: "USERNAME_AND_EMAIL",
+    dropdownClasses: 'simple',
   });
 }
 
@@ -82,4 +83,8 @@ Meteor.methods({
       createdBy: Meteor.user(),
     });
   },
+});
+
+Avatar.setOptions({
+  cssClassPrefix: 'img',
 });

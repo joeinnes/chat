@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-accounts-ui
 accounts-password
 standard-minifiers
 meteor-base
@@ -21,6 +20,9 @@ ejson
 spacebars
 check
 momentjs:moment
-mrt:purecss
 sacha:spin
 utilities:avatar
+iandouglas:accounts-ui-semantic-ui
+semantic:ui
+flemay:less-autoprefixer
+semantic:ui-css

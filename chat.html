@@ -1,34 +1,61 @@
 <head>
   <title>Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-  {{#if loading}}
+  <nav class="ui menu">
+      <strong class="header item">Messages</strong>
+      <p class="ui right item dropdown">{{> loginButtons}}</p>
+  </nav>
+  <div class="ui grid">
+    <!--<div class="one column row">
+    <div class="column">
+    {{#if loading}}
     {{> loading}}
-  {{/if}}
-  <div class="container">
-    <header>
-      <h1>Messages</h1>
-      {{> loginButtons}}
-    </header>
-
-{{#if currentUser}}
-    <form class="new-message pure-form">
-      <input type="text" name="text" placeholder="Hi {{currentUser.username}}..." class="pure-input-1"/>
-    </form>
-    <ul>
-      {{#each messages}}
-        {{> message}}
-      {{/each}}
-    </ul>
-    {{else}}
-    <p>You need to sign in.</p>
     {{/if}}
   </div>
+</div>-->
+<div class="one wide column"></div>
+<div class="three wide column">
+  <h1>Hi {{currentUser.username}}</h1>
+</div>
+<div class="eleven wide column">
+  {{#if currentUser}}
+  <form class="new-message ui form">
+    <div class="field">
+      <input type="text" name="text" placeholder="Hi {{currentUser.username}}..." />
+    </div>
+  </form>
+  <br />
+    {{#each messages}}
+    {{> message}}
+    {{/each}}
+  {{else}}
+  <p>You need to sign in.</p>
+  {{/if}}
+</div>
+<div class="one wide column"></div>
+</div>
 </body>
 
 <template name="message">
-  <div class="bubble{{#if usersOwn currentUser.username createdBy.username}} bubble-alt{{/if}}"><div class="pull-left">{{> avatar user=createdBy shape="circle"}}</div>{{text}}<br /><small class="time">{{createdBy.username}} - {{createdAtTime createdAt}}</small></div>
+  <div class="ui comments">
+  <div class="comment">
+    <div class="pull-left">
+    {{> avatar user=createdBy class="img" shape="rounded"}}
+    </div>
+    <div class="content">
+      <a class="author">{{createdBy.username}}</a>
+      <div class="metadata">
+        <div class="date">{{createdAtTime createdAt}}</div>
+      </div>
+      <div class="text">
+        {{text}}
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <template name="loading">
