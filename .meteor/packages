@@ -26,3 +26,4 @@ iandouglas:accounts-ui-semantic-ui
 semantic:ui
 flemay:less-autoprefixer
 semantic:ui-css
+iron:router

@@ -1,0 +1,6 @@
+<template name="leftpane">
+  {{#if currentUser}}
+    <h1>Hi {{currentUser.username}}</h1>
+    {{> channellist}}
+  {{/if}}
+</template>
