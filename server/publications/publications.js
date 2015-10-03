@@ -6,11 +6,12 @@ Meteor.publish('messages', function() {
 });
 
 Meteor.publish('channels', function() {
+  var userId = this.userId;
   return Channels.find({
     access: {
       $in: [
         'public',
-        Meteor.userId,
+        userId,
       ],
     },
   });

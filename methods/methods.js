@@ -32,7 +32,7 @@ Meteor.methods({
       channelName: text,
       createdAt: new Date(),
       createdBy: Meteor.userId(),
-      access: ['public'],
+      access: ['public', Meteor.userId()],
     });
   },
 
