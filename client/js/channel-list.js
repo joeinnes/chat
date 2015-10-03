@@ -17,7 +17,7 @@ Template.channellist.events({
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel plx!',
+      cancelButtonText: 'No, cancel!',
       closeOnConfirm: false,
       closeOnCancel: false,
     },
@@ -36,4 +36,11 @@ Template.channellist.events({
       }
     });
   },
+});
+
+Template.channellist.onCreated(function() {
+  var self = this;
+  self.autorun(function() {
+    self.subscribe('channels', {sort: {createdAt: +1}});
+  });
 });
