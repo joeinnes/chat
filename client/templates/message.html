@@ -1,0 +1,18 @@
+<template name="message">
+  <div class="ui comments">
+    <div class="comment">
+      <div class="pull-left">
+        {{> avatar user=createdBy class="img" shape="rounded"}}
+      </div>
+      <div class="content">
+        <a class="author">{{createdBy.username}}</a>
+        <div class="metadata">
+          <div class="date">{{createdAtTime createdAt}}</div>
+        </div>
+        <div class="text">
+          {{text}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

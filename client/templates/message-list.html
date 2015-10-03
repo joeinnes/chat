@@ -1,0 +1,9 @@
+<template name="messagelist">
+  {{#if Template.subscriptionsReady}}
+  {{#each messages}}
+  {{> message}}
+  {{/each}}
+  {{else}}
+  {{> loading}}
+  {{/if}}
+</template>
