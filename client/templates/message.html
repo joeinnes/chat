@@ -8,15 +8,16 @@
         <a class="author">{{createdBy.username}}</a>
         <div class="metadata">
           <div class="date">{{createdAtTime createdAt}}</div>
-        </div>
-        <div class="text">
-          {{text}}
           {{#if usersOwn currentUser.username createdBy.username}}
           <div class="actions">
             <a class="edit-message">Edit</a>
             <a class="delete-message">Delete</a>
           </div>
           {{/if}}
+        </div>  
+        <div class="text">
+          {{#markdown}}{{text}}{{/markdown}}
+
         </div>
       </div>
     </div>
