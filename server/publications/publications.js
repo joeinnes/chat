@@ -1,5 +1,5 @@
 /* jshint strict:false */
-/* globals Meteor, Messages, Channels, Users */
+/* globals Meteor, Messages, Channels, Users, Emojis */
 
 Meteor.publish('messages', function() {
   return Messages.find();
@@ -25,4 +25,10 @@ Meteor.publish('users', function() {
       email: 1,
     },
   });
+});
+
+Meteor.publish('emojis', function() {
+  // Here you can choose to publish a subset of all emojis
+  // if you'd like to.
+  return Emojis.find();
 });

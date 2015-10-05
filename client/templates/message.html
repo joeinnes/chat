@@ -16,8 +16,7 @@
           {{/if}}
         </div>
         <div class="text">
-          {{#markdown}}{{parseEmoticons text}}{{/markdown}}
-
+          {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}
         </div>
       </div>
     </div>
