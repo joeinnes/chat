@@ -1,6 +1,8 @@
 /* jshint strict:false */
 /* globals Meteor, Messages, Channels */
 
+Users = Meteor.users;
+
 Meteor.methods({
   addMessage: function(text, channel) {
     // Make sure the user is logged in before inserting a task
@@ -30,6 +32,7 @@ Meteor.methods({
       channelName: text,
       createdAt: new Date(),
       createdBy: Meteor.userId(),
+      access: ['public', Meteor.userId()],
     });
   },
 
@@ -49,5 +52,23 @@ Meteor.methods({
     }
 
     Channels.remove(channel);
+  },
+
+  removeMessage: function(message) {
+    // Make sure the user is logged in before removing a channel
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (!Messages.find(message)) {
+      throw new Meteor.Error('no-such-message-exists');
+    }
+
+    /* Only creator can delete message */
+    if (Messages.findOne({_id: message}).createdBy._id !== Meteor.userId()) {
+      throw new Meteor.Error('not-message-owner');
+    }
+
+    Messages.remove(message);
   },
 });

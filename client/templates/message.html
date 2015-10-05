@@ -11,6 +11,12 @@
         </div>
         <div class="text">
           {{text}}
+          {{#if usersOwn currentUser.username createdBy.username}}
+          <div class="actions">
+            <a class="edit-message">Edit</a>
+            <a class="delete-message">Delete</a>
+          </div>
+          {{/if}}
         </div>
       </div>
     </div>

@@ -1,0 +1,7 @@
+<template name="userlist">
+  <ul>
+    {{#each users}}
+    <li>{{> avatar user=this class="img" shape="rounded"}} {{_id}} - {{username}}<br>{{emails.[0].address}}</li>
+    {{/each}}
+  </ul>
+</template>
