@@ -1,0 +1,9 @@
+<template name="channeladmin">
+    Administering {{adminChannel}}<br />
+    Channel name: {{channelDetails.channelName}}<br />
+    Created on: {{createdAtTime channelDetails.createdAt}}<br />
+    Created by: {{findChannelAdmin channelDetails.createdBy}}<br />
+    Access: {{#each channelDetails.access}}
+    {{this}}<br />
+    {{/each}}
+</template>
