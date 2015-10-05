@@ -14,9 +14,9 @@
             <a class="delete-message">Delete</a>
           </div>
           {{/if}}
-        </div>  
+        </div>
         <div class="text">
-          {{#markdown}}{{text}}{{/markdown}}
+          {{#markdown}}{{parseEmoticons text}}{{/markdown}}
 
         </div>
       </div>
