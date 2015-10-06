@@ -32,7 +32,8 @@ Meteor.methods({
       channelName: text,
       createdAt: new Date(),
       createdBy: Meteor.userId(),
-      access: ['public', Meteor.userId()],
+      access: [Meteor.userId()],
+      global: true,
     });
   },
 
@@ -71,4 +72,65 @@ Meteor.methods({
 
     Messages.remove(message);
   },
+
+  setChannelPublic: function(channelId, value) {
+    // Make sure the user is logged in before inserting a channel
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (!Channels.findOne({_id: channelId})) {
+      throw new Meteor.Error('channel-does-not-exist-or-you-are-not-authorised-to-see-it');
+    }
+
+    if (Channels.findOne({_id: channelId}).createdBy !== Meteor.userId()) {
+      throw new Meteor.Error('not-channel-owner');
+    }
+
+    Channels.update({
+      _id: channelId,
+    }, {
+      $set: {
+        global: value,
+      },
+    });
+  },
+
+  manageUserAccess: function(channelId, users, grantOrDeny) {
+        // Make sure the user is logged in before inserting a channel
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    if (!Channels.findOne({_id: channelId})) {
+      throw new Meteor.Error('channel-does-not-exist-or-you-are-not-authorised-to-see-it');
+    }
+
+    if (Channels.findOne({_id: channelId}).createdBy !== Meteor.userId()) {
+      throw new Meteor.Error('not-channel-owner');
+    }
+
+    if (grantOrDeny === "grant") {
+      Channels.update({
+        _id: channelId,
+      }, {
+        $push: {
+          access: {
+            $each: users,
+          },
+        },
+      });
+    } else if (grantOrDeny === "deny") {
+      Channels.update({
+        _id: channelId,
+      }, {
+        $pullAll: {
+          access: users,
+        },
+      });
+    } else {
+      throw new Meteor.Error('unrecognised-instruction');
+    }
+  },
+
 });

@@ -1,7 +1,7 @@
 <template name="channellist">
   <div class="ui list">
     {{#each channels}}
-    <div class="item channel-chooser"><a class="channel_name" href="{{channelName}}">#{{channelName}}</a> <button class="delete-channel ui button mini pull-right">&times;</button></div>
+    <div class="item channel-chooser"><a class="channel_name" href="{{pathFor route=channel}}">#{{channelName}}</a> <button class="delete-channel ui button mini pull-right">&times;</button></div>
     {{/each}}
     {{> channeladd}}
   </div>

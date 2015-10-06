@@ -2,8 +2,37 @@
     Administering {{adminChannel}}<br />
     Channel name: {{channelDetails.channelName}}<br />
     Created on: {{createdAtTime channelDetails.createdAt}}<br />
-    Created by: {{findChannelAdmin channelDetails.createdBy}}<br />
+    Created by: {{findUserNameFromId channelDetails.createdBy}}<br />
     Access: {{#each channelDetails.access}}
-    {{this}}<br />
+    {{findUserNameFromId this}}<br />
     {{/each}}
+    Public: {{channelDetails.global}}
+    <br />
+    <a class="make-public" id={{channelDetails._id}}>Make public?</a><br />
+    <a class="make-private" id={{channelDetails._id}}>Make private?</a><br />
+    <form class="ui form user-add-form" id={{channelDetails._id}}>
+        <div class="field">
+            <label>Add users to channel</label>
+            <select multiple="" class="ui dropdown search add-user">
+                <option value="">Select Users</option>
+                {{#each users}}
+                    <option value={{_id}}>{{username}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <form class="ui form user-remove-form" id={{channelDetails._id}}>
+        <div class="field">
+            <label>Remove users from channel</label>
+            <select multiple="" class="ui dropdown search remove-user">
+                <option value="">Select Users</option>
+                {{#each users}}
+                    <option value={{_id}}>{{username}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
 </template>
