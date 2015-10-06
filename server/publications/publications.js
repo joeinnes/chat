@@ -1,24 +1,6 @@
 /* jshint strict:false */
 /* globals Meteor, Messages, Channels, Users, Emojis */
 
-/* Meteor.publish('messages', function() {
-  var userId = this.userId;
-  var authorisedChannels = Channels.find({
-    $or: [{
-      global: true
-    }, {
-      access: {
-        $in: [
-          userId,
-        ],
-      },
-    }]
-  });
-  return authorisedChannels.forEach(function(doc) {
-    return Messages.find({channel: doc.channelName});
-  });
-}); */
-
 Meteor.publish('messages', function() {
   var userId = this.userId;
   var authorisedChannels = [];
