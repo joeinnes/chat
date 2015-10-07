@@ -17,17 +17,24 @@
             </div>
             <div class="item">
                 <div class="header">Access</div>
-                <div class="ui list">
-                    {{#each channelDetails.access}}
-                    <div class="item">
-                        <div class="pull-left">{{> avatar userId=this shape="circle" size="extra-small"}}</div> {{findUserNameFromId this}}
+                <div class="content">
+                    <div class="ui feed">
+                        {{#each channelDetails.access}}
+                        <div class="event">
+                            <div class="label">
+                                <img src={{avatarUrl (fullUserFromId this)}}>
+                            </div>
+                            <div class="content">
+                                {{findUserNameFromId this}}
+                            </div>
+                        </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
             </div>
             <div class="item">
                 <div class="header">Public</div>
-                {{channelDetails.global}}
+                {{isPublic}}
             </div>
         </div>
     </div>

@@ -16,3 +16,12 @@ Template.registerHelper('findUserNameFromId', function(userId) {
     return userId;
   }
 });
+
+Template.registerHelper('avatarUrl', function(user) {
+  var email = user.emails[0].address;
+  var options = {
+    size: 50,
+    default: 'mm',
+  }
+  return Gravatar.imageUrl(email, options);
+});

@@ -5,6 +5,15 @@ Template.channellist.helpers({
   channels: function() {
     return Channels.find({}, {sort: {createdAt: +1}});
   },
+  usersOwn: function(thisChannelCreator, createdBy) {
+    console.log(thisChannelCreator);
+    console.log(createdBy);
+    if (thisChannelCreator === createdBy) {
+      return true;
+    } else {
+      return false;
+    }
+  },
 });
 
 Template.channellist.events({

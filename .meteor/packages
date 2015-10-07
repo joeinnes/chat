@@ -21,7 +21,6 @@ spacebars
 check
 momentjs:moment
 sacha:spin
-utilities:avatar
 iandouglas:accounts-ui-semantic-ui
 semantic:ui
 flemay:less-autoprefixer
@@ -30,3 +29,4 @@ iron:router
 kevohagan:sweetalert
 markdown
 lookback:emoji
+jparker:gravatar
