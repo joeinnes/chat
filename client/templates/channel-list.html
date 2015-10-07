@@ -1,5 +1,5 @@
 <template name="channellist">
-
+{{#if Template.subscriptionsReady}}
 <div class="ui middle aligned list">
   {{#each channels}}
   <div class="item">
@@ -20,24 +20,8 @@
     </div>
   </div>
   {{/each}}
-</div>
 
-</template>
-
-<!--  <div class="ui middle aligned list">
-    {{#each channels}}
-    <div class="item">
-      {{#if usersOwn this.createdBy currentUser._id}}
-
-      {{/if}}
-      <div class="middle aligned content">
-        <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
-          #{{channelName}}
-        </a>
-      </div>
-    </div>
-    {{/each}}
-  </div>
   {{> channeladd}}
-
-  -->
+</div>
+{{/if}}
+</template>

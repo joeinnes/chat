@@ -1,4 +1,5 @@
 <template name="message">
+  {{#if Template.subscriptionsReady}}
   <div class="comment">
     <a class="avatar">
       <img src="{{avatarUrl createdBy}}">
@@ -19,8 +20,11 @@
         {{/if}}
       </div>
       <div class="text">
-        {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}
+        {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}&nbsp;
       </div>
     </div>
   </div>
+  {{else}}
+  {{> loading}}
+  {{/if}}
 </template>

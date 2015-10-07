@@ -1,13 +1,11 @@
 /* jshint strict:false */
-/* globals Template, Channels, Meteor, swal */
+/* globals Template, Channels, Meteor, swal, Router */
 
 Template.channellist.helpers({
   channels: function() {
     return Channels.find({}, {sort: {createdAt: +1}});
   },
   usersOwn: function(thisChannelCreator, createdBy) {
-    console.log(thisChannelCreator);
-    console.log(createdBy);
     if (thisChannelCreator === createdBy) {
       return true;
     } else {
@@ -37,6 +35,7 @@ Template.channellist.events({
             swal('Error', 'The channel could not be deleted\n' + err, 'error');
           } else {
             swal('Deleted!', 'Channel has been deleted.', 'success');
+            Router.go('/');
           }
         });
 

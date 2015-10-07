@@ -7,7 +7,11 @@ Meteor.methods({
   addMessage: function(text, channel) {
     // Make sure the user is logged in before inserting a task
     if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
+      throw new Meteor.Error('not-authorised');
+    }
+
+    if(text.length === 0) {
+      throw new Meteor.Error('your-lip-are-sealed');
     }
 
     Messages.insert({
@@ -21,7 +25,7 @@ Meteor.methods({
   addChannel: function(text) {
     // Make sure the user is logged in before inserting a channel
     if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
+      throw new Meteor.Error('not-authorised');
     }
 
     if (Channels.findOne({channelName: text})) {
@@ -40,7 +44,7 @@ Meteor.methods({
   removeChannel: function(channel) {
     // Make sure the user is logged in before removing a channel
     if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
+      throw new Meteor.Error('not-authorised');
     }
 
     if (!Channels.find(channel)) {
@@ -52,13 +56,15 @@ Meteor.methods({
       throw new Meteor.Error('not-channel-owner');
     }
 
+    var channelName = Channels.findOne(channel).channelName;
+    Messages.remove({channel: channelName});
     Channels.remove(channel);
   },
 
   removeMessage: function(message) {
     // Make sure the user is logged in before removing a channel
     if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
+      throw new Meteor.Error('not-authorised');
     }
 
     if (!Messages.find(message)) {
@@ -76,7 +82,7 @@ Meteor.methods({
   setChannelPublic: function(channelId, value) {
     // Make sure the user is logged in before inserting a channel
     if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
+      throw new Meteor.Error('not-authorised');
     }
 
     if (!Channels.findOne({_id: channelId})) {
@@ -99,7 +105,7 @@ Meteor.methods({
   manageUserAccess: function(channelId, users, grantOrDeny) {
         // Make sure the user is logged in before inserting a channel
     if (!Meteor.userId()) {
-      throw new Meteor.Error('not-authorized');
+      throw new Meteor.Error('not-authorised');
     }
 
     if (!Channels.findOne({_id: channelId})) {
@@ -114,7 +120,7 @@ Meteor.methods({
       Channels.update({
         _id: channelId,
       }, {
-        $push: {
+        $addToSet: {
           access: {
             $each: users,
           },

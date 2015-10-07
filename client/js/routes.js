@@ -24,3 +24,10 @@ Router.route('/admin/:channel', function() {
   name: 'admin',
   }
 );
+
+Router.route('/about', function() {
+  this.render('about');
+  }, {
+    name: 'about',
+  }
+);

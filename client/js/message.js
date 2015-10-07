@@ -8,7 +8,7 @@ Template.message.helpers({
     } else {
       return false;
     }
-  },
+  }
 });
 
 Template.message.events({
