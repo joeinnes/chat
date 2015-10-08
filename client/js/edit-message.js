@@ -2,7 +2,7 @@
 /* globals Messages, Meteor, Session, Template */
 
 Template.editmessage.events({
-  'submit .edit-message': function(event) {
+  'submit .editing-message': function(event) {
     // Prevent default browser form submit
     event.preventDefault();
 
