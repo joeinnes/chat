@@ -50,6 +50,5 @@ Template.message.events({
   'click .edit-message': function(event) {
     var messageId = event.target.id;
     Session.set('editingId', messageId);
-    console.log('You set an editing ID!');
   },
 });
