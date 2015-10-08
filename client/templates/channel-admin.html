@@ -1,0 +1,50 @@
+<template name="channeladmin">
+    {{#if Template.subscriptionsReady}}
+    {{> channeldetails}}
+
+        <br />
+        <a class="make-public" id={{channelDetails._id}}>Make public?</a>
+        <br />
+        <a class="make-private" id={{channelDetails._id}}>Make private?</a>
+        <br />
+
+        <div class="ui horizontal stackable segments">
+            <div class="ui segment">
+                <form class="ui form user-add-form" id={{channelDetails._id}}>
+                    <div class="field">
+                        <label>Add users to channel</label>
+                        <select multiple="" class="ui dropdown search add-user">
+                            <option value="">Select Users</option>
+                            {{#each users}}
+                            <option value={{_id}}>{{username}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <button type="submit" class="ui primary labeled icon button">
+                        <i class="add user icon "></i>
+                        Add users
+                    </button>
+                </form>
+            </div>
+            <div class="ui segment">
+                <form class="ui form user-remove-form" id={{channelDetails._id}}>
+                    <div class="field">
+                        <label>Remove users from channel</label>
+                        <select multiple="" class="ui dropdown search remove-user">
+                            <option value="">Select Users</option>
+                            {{#each users}}
+                            <option value={{_id}}>{{username}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <button type="submit" class="ui red labeled icon button">
+                        <i class="remove user icon"></i>
+                        Remove users
+                    </button>
+                </form>
+            </div>
+        </div>
+        {{else}}
+        {{> loading}}
+        {{/if}}
+</template>

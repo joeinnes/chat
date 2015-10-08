@@ -2,17 +2,13 @@
 /* globals moment, Template, swal, Meteor */
 
 Template.message.helpers({
-  createdAtTime: function(time) {
-    return moment(time).fromNow();
-  },
-
   usersOwn: function(thisUser, createdBy) {
     if (thisUser === createdBy) {
       return true;
     } else {
       return false;
     }
-  },
+  }
 });
 
 Template.message.events({

@@ -6,10 +6,28 @@ Router.configure({
 });
 
 Router.route('/', function() {
-  this.redirect('/general');
+  this.redirect('/channel/general');
 });
 
-Router.route('/:channel', function() {
+Router.route('/channel/:channel', function() {
   Session.set('currentChannel', this.params.channel);
   this.render('room');
-});
+  }, {
+    name: 'channel',
+  }
+);
+
+Router.route('/admin/:channel', function() {
+  Session.set('adminChannel', this.params.channel);
+  this.render('channeladmin');
+  }, {
+  name: 'admin',
+  }
+);
+
+Router.route('/about', function() {
+  this.render('about');
+  }, {
+    name: 'about',
+  }
+);

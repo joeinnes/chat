@@ -1,8 +1,27 @@
 <template name="channellist">
-  <div class="ui list">
-    {{#each channels}}
-    <div class="item channel-chooser"><a class="channel_name" href="{{channelName}}">#{{channelName}}</a> <button class="delete-channel ui button mini pull-right">&times;</button></div>
-    {{/each}}
-    {{> channeladd}}
+{{#if Template.subscriptionsReady}}
+<div class="ui middle aligned list">
+  {{#each channels}}
+  <div class="item">
+    {{#if usersOwn this.createdBy currentUser._id}}
+    <div class="right floated middle aligned content">
+      <a class="channel_name unstyled-links" href="{{pathFor 'admin' channel=channelName}}">
+        <i class="options icon"></i>
+      </a>
+      <a class="delete-channel unstyled-links">
+        <i class="trash outline icon"></i>
+      </a>
+    </div>
+    {{/if}}
+    <div class="middle aligned content">
+      <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
+          #{{channelName}}
+      </a>
+    </div>
   </div>
+  {{/each}}
+
+  {{> channeladd}}
+</div>
+{{/if}}
 </template>

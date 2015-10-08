@@ -1,0 +1,43 @@
+<template name="channeldetails">
+    {{#if Template.subscriptionsReady}}
+    <div class="ui raised segment">
+        <h1>Administering #{{adminChannel}}</h1>
+        <div class="ui divider"></div>
+        <div class="ui list">
+            <div class="item">
+                <div class="header">Channel name</div>
+                {{channelDetails.channelName}}
+            </div>
+            <div class="item">
+                <div class="header">Created</div>
+                {{createdAtTime channelDetails.createdAt}}
+            </div>
+            <div class="item">
+                <div class="header">Created by</div>
+                {{findUserNameFromId channelDetails.createdBy}}
+            </div>
+            <div class="item">
+                <div class="header">Access</div>
+                <div class="content">
+                    <div class="ui feed">
+                        {{#each channelDetails.access}}
+                        <div class="event">
+                            <div class="label">
+                                <img src={{avatarUrl (fullUserFromId this)}}>
+                            </div>
+                            <div class="content">
+                                {{findUserNameFromId this}}
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="header">Public</div>
+                {{isPublic}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</template>

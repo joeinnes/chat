@@ -1,8 +1,10 @@
 <template name="messagelist">
   {{#if Template.subscriptionsReady}}
+  <div class="ui comments">
   {{#each messages}}
   {{> message}}
   {{/each}}
+  </div>
   {{else}}
   {{> loading}}
   {{/if}}
