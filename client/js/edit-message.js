@@ -17,6 +17,7 @@ Template.editmessage.events({
     Session.set('editingId', '');
   },
   'click .cancel-edit-message': function() {
+    event.preventDefault();
     $('.edit-message.text').val('');
     Session.set('editingId', '');
   },
