@@ -2,6 +2,10 @@
   {{#if currentUser}}
   {{> yield}}
   {{else}}
-  <p>You need to sign in.</p>
+    {{#if loggingIn}}
+      {{> loading}}
+    {{else}}
+      <p>You need to sign in.</p>
+    {{/if}}
   {{/if}}
 </template>

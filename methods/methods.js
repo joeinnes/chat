@@ -139,4 +139,32 @@ Meteor.methods({
     }
   },
 
+  editMessage: function(id, text) {
+    // Make sure the user is logged in before inserting a task
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorised');
+    }
+
+    if(text.length === 0) {
+      throw new Meteor.Error('your-lip-are-sealed');
+    }
+
+    if (!Messages.findOne({_id: id})) {
+      throw new Meteor.Error('message-does-not-exist-or-you-are-not-authorised-to-see-it');
+    }
+
+    if (Messages.findOne({_id: id}).createdBy._id !== Meteor.userId()) {
+      throw new Meteor.Error('not-message-owner');
+    }
+
+    Messages.update({
+      _id: id,
+    }, {
+      $set: {
+        text: text,
+        edited: new Date(),
+      },
+    });
+  },
+
 });
