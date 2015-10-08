@@ -10,6 +10,13 @@ Template.channeladmin.helpers({
     users: function() {
         return Users.find({}, {sort: {createdAt: -1}});
     },
+    isPublic: function() {
+      if (Channels.findOne({channelName: Session.get('adminChannel')}).global === true) {
+        return 'Yes';
+      } else {
+        return 'No';
+      }
+    }
 });
 
 Template.channeladmin.events({

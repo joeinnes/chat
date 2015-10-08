@@ -1,4 +1,5 @@
 <template name="channeldetails">
+    {{#if Template.subscriptionsReady}}
     <div class="ui raised segment">
         <h1>Administering #{{adminChannel}}</h1>
         <div class="ui divider"></div>
@@ -38,4 +39,5 @@
             </div>
         </div>
     </div>
+    {{/if}}
 </template>
