@@ -10,17 +10,22 @@
       </a>
       <div class="metadata">
         <div class="date">
-          {{createdAtTime createdAt}}
+          {{createdAtTime createdAt}}{{#if edited}} - edited {{createdAtTime edited}}{{/if}}
         </div>
+
         {{#if usersOwn currentUser.username createdBy.username}}
         <div class="actions">
-          <a class="edit-message">Edit</a>
+          <a class="edit-message" id={{_id}}>Edit</a>
           <a class="delete-message">Delete</a>
         </div>
         {{/if}}
       </div>
       <div class="text">
-        {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}&nbsp;
+        {{#if editThis _id}}
+          {{> editmessage}}
+        {{else}}
+          {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}&nbsp;
+        {{/if}}
       </div>
     </div>
   </div>

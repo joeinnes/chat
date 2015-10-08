@@ -8,7 +8,14 @@ Template.message.helpers({
     } else {
       return false;
     }
-  }
+  },
+  editThis: function(thisId) {
+    if (Session.get('editingId') === thisId) {
+      return true;
+    } else {
+      return false;
+    }
+  },
 });
 
 Template.message.events({
@@ -39,5 +46,10 @@ Template.message.events({
         swal('Cancelled', 'The message has not been deleted', 'error');
       }
     });
+  },
+  'click .edit-message': function(event) {
+    var messageId = event.target.id;
+    Session.set('editingId', messageId);
+    console.log('You set an editing ID!');
   },
 });
