@@ -8,7 +8,7 @@ Template.channeldetails.helpers({
         return Channels.findOne({channelName: Session.get('adminChannel')});
     },
     isPublic: function() {
-      if (Channels.findOne({channelName: Session.get('adminChannel')}).public) {
+      if (Channels.findOne({channelName: Session.get('adminChannel')}).global) {
         return 'Yes';
       } else{
         return 'No';
