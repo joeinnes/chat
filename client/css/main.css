@@ -1,8 +1,6 @@
 /* CSS declarations go here */
 /* CSS declarations go here */
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400,500,300,700);
-
 /*
 body {
   font-family: Lato, sans-serif;
@@ -66,17 +64,11 @@ img {
 
 */
 
-.channel_name {
+.channel_name, .unstyled-links {
   text-decoration: none;
   color: inherit;
 }
 
-.pull-left {
-  float: left;
-  padding: 0 5px;
-}
-
-.pull-right {
-  float: right;
-  padding: 0 5px;
+.avatar {
+  padding-right: 5px;
 }

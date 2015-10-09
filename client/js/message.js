@@ -2,12 +2,15 @@
 /* globals moment, Template, swal, Meteor */
 
 Template.message.helpers({
-  createdAtTime: function(time) {
-    return moment(time).fromNow();
-  },
-
   usersOwn: function(thisUser, createdBy) {
     if (thisUser === createdBy) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  editThis: function(thisId) {
+    if (Session.get('editingId') === thisId) {
       return true;
     } else {
       return false;
@@ -43,5 +46,9 @@ Template.message.events({
         swal('Cancelled', 'The message has not been deleted', 'error');
       }
     });
+  },
+  'click .edit-message': function(event) {
+    var messageId = event.target.id;
+    Session.set('editingId', messageId);
   },
 });

@@ -1,24 +1,35 @@
 <template name="message">
-  <div class="ui comments">
-    <div class="comment">
-      <div class="pull-left">
-        {{> avatar user=createdBy class="img" shape="rounded"}}
+  {{#if Template.subscriptionsReady}}
+  <div class="comment">
+    <a class="avatar">
+      <img src="{{avatarUrl createdBy}}">
+    </a>
+    <div class="content">
+      <a class="author">
+        {{createdBy.username}}
+      </a>
+      <div class="metadata">
+        <div class="date">
+          {{createdAtTime createdAt}}{{#if edited}} - edited {{createdAtTime edited}}{{/if}}
+        </div>
+
+        {{#if usersOwn currentUser.username createdBy.username}}
+        <div class="actions">
+          <a class="edit-message" id={{_id}}>Edit</a>
+          <a class="delete-message">Delete</a>
+        </div>
+        {{/if}}
       </div>
-      <div class="content">
-        <a class="author">{{createdBy.username}}</a>
-        <div class="metadata">
-          <div class="date">{{createdAtTime createdAt}}</div>
-          {{#if usersOwn currentUser.username createdBy.username}}
-          <div class="actions">
-            <a class="edit-message">Edit</a>
-            <a class="delete-message">Delete</a>
-          </div>
-          {{/if}}
-        </div>
-        <div class="text">
-          {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}
-        </div>
+      <div class="text">
+        {{#if editThis _id}}
+          {{> editmessage}}
+        {{else}}
+          {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}&nbsp;
+        {{/if}}
       </div>
     </div>
   </div>
+  {{else}}
+  {{> loading}}
+  {{/if}}
 </template>

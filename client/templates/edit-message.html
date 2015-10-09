@@ -1,0 +1,17 @@
+<template name="editmessage">
+  {{#if displayEditingWindow}}
+    {{#with message id}}
+    <form class="editing-message ui form" id={{_id}} >
+      <div class="ui action input fluid">
+      <input name="text" autocomplete="off" value={{text}} />
+      <button class="ui icon button cancel-edit-message" type="reset">
+      <i class="cancel icon"></i>
+      </button>
+      <button class="ui icon button save-edit-message" type="submit">
+      <i class="save icon"></i>
+      </button>
+    </div>
+  </form>
+  {{/with}}
+  {{/if}}
+</template>
