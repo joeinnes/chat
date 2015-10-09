@@ -14,6 +14,10 @@ Meteor.methods({
       throw new Meteor.Error('your-lip-are-sealed');
     }
 
+    if (!Channels.findOne({channelName: channel})) {
+      throw new Meteor.Error('channel-does-not-exist-or-you-are-not-authorised-to-use-it');
+    }
+
     Messages.insert({
       text: text,
       createdAt: new Date(),
