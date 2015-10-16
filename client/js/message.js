@@ -16,6 +16,12 @@ Template.message.helpers({
       return false;
     }
   },
+  emojiAliased: function(text) {
+    var returnedText = text;
+    // Add the :* as an alias for kissing_heart
+    returnedText = returnedText.replace(/:\*/g, ":kissing_heart:");
+    return returnedText;
+  }
 });
 
 Template.message.events({

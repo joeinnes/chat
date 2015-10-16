@@ -28,6 +28,7 @@ semantic:ui-css
 iron:router
 kevohagan:sweetalert
 markdown
-lookback:emoji
 jparker:gravatar
 msavin:mongol
+lookback:emoji
+frozeman:reactive-timer

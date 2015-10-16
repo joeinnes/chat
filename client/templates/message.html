@@ -24,7 +24,7 @@
         {{#if editThis _id}}
           {{> editmessage}}
         {{else}}
-          {{#markdown}}{{#emoji}}{{text}}{{/emoji}}{{/markdown}}&nbsp;
+        {{#markdown}}{{#emoji}}{{emojiAliased text}}{{/emoji}}{{/markdown}}&nbsp;
         {{/if}}
       </div>
     </div>

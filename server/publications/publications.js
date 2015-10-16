@@ -1,7 +1,7 @@
 /* jshint strict:false */
 /* globals Meteor, Messages, Channels, Users, Emojis */
 
-Meteor.publish('messages', function() {
+Meteor.publish('messages', function (channel, limit) {
   var userId = this.userId;
   var authorisedChannels = [];
   Channels.find({
@@ -14,12 +14,22 @@ Meteor.publish('messages', function() {
         ],
       },
     }]
-  }).forEach(function(doc) {authorisedChannels.push(doc.channelName);});
-  var selector = {channel: {$in: authorisedChannels}};
-  return Messages.find(selector);
+  }).forEach(function (doc) {
+    authorisedChannels.push(doc.channelName);
+  });
+
+  if (authorisedChannels.indexOf(channel) > -1) {
+
+  }
+  var selector = {
+    channel: {
+      $in: authorisedChannels
+    }
+  };
+  return Messages.find(selector, {limit: limit, sort: {createdAt: -1}});
 });
 
-Meteor.publish('channels', function() {
+Meteor.publish('channels', function () {
   var userId = this.userId;
   return Channels.find({
     $or: [{
@@ -34,7 +44,7 @@ Meteor.publish('channels', function() {
   });
 });
 
-Meteor.publish('users', function() {
+Meteor.publish('users', function () {
   return Users.find({}, {
     fields: {
       username: 1,
@@ -44,7 +54,7 @@ Meteor.publish('users', function() {
   });
 });
 
-Meteor.publish('emojis', function() {
+Meteor.publish('emojis', function () {
   // Here you can choose to publish a subset of all emojis
   // if you'd like to.
   return Emojis.find();
