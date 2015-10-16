@@ -1,11 +1,12 @@
 <template name="messagelist">
-  {{#if Template.subscriptionsReady}}
   <div class="ui comments">
   {{#each messages}}
   {{> message}}
   {{/each}}
-  </div>
-  {{else}}
-  {{> loading}}
+  {{#if moreResults}}
+    <div id="showMoreResults" style="margin-left: 25px;">
+        <span class="loading">Loading...</span>
+    </div>
   {{/if}}
+  </div>
 </template>

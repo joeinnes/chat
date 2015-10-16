@@ -11,7 +11,7 @@ Meteor.methods({
     }
 
     if (text.length === 0) {
-      throw new Meteor.Error('your-lip-are-sealed');
+      throw new Meteor.Error('your-lips-are-sealed');
     }
 
     if (!Channels.findOne({
@@ -20,6 +20,7 @@ Meteor.methods({
       throw new Meteor.Error('channel-does-not-exist-or-you-are-not-authorised-to-use-it');
     }
 
+    console.log('Inserting...');
     Messages.insert({
       text: text,
       createdAt: new Date(),
