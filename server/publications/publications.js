@@ -1,7 +1,7 @@
 /* jshint strict:false */
 /* globals Meteor, Messages, Channels, Users, Emojis */
 
-Meteor.publish('messages', function () {
+Meteor.publish('messages', function (channel, limit) {
   var userId = this.userId;
   var authorisedChannels = [];
   Channels.find({
@@ -17,12 +17,16 @@ Meteor.publish('messages', function () {
   }).forEach(function (doc) {
     authorisedChannels.push(doc.channelName);
   });
+
+  if (authorisedChannels.indexOf(channel) > -1) {
+
+  }
   var selector = {
     channel: {
       $in: authorisedChannels
     }
   };
-  return Messages.find(selector);
+  return Messages.find(selector, {limit: limit, sort: {createdAt: -1}});
 });
 
 Meteor.publish('channels', function () {

@@ -1,7 +1,7 @@
 /* jshint strict:false */
 /* globals Template, Channels, Meteor, swal, Router */
 
-Template.channellist.helpers({
+Template.mobilechannellist.helpers({
   channels: function() {
     return Channels.find({}, {sort: {createdAt: +1}});
   },
@@ -12,16 +12,9 @@ Template.channellist.helpers({
       return false;
     }
   },
-  isSubscribed: function() {
-    if (Meteor.user().profile.subscriptions.channels.indexOf(this._id) > -1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 });
 
-Template.channellist.events({
+Template.mobilechannellist.events({
   'click .delete-channel': function() {
     var channelId = this._id;
     swal({
@@ -51,18 +44,9 @@ Template.channellist.events({
       }
     });
   },
-
-  'click .subscribe-to-channel': function() {
-    var channelId = this._id;
-    if (Meteor.user().profile.subscriptions.channels.indexOf(this._id) > -1) {
-      Meteor.call('removeSubscription', channelId, 'channel');
-    } else {
-      Meteor.call('addSubscription', channelId, 'channel');
-    }
-  },
 });
 
-Template.channellist.onCreated(function() {
+Template.mobilechannellist.onCreated(function() {
   var self = this;
   self.autorun(function() {
     self.subscribe('channels', {sort: {createdAt: +1}});
