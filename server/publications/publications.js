@@ -81,3 +81,7 @@ Meteor.publish('emojis', function () {
   // if you'd like to.
   return Emojis.find();
 });
+
+Meteor.publish('notifications', function() {
+  return Notifications.find();
+});
