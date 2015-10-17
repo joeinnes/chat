@@ -19,10 +19,11 @@ Template.registerHelper('findUserNameFromId', function(userId) {
   }
 });
 
-Template.registerHelper('avatarUrl', function(user) {
-  var email = user.emails[0].address;
+Template.registerHelper('avatarUrl', function(user, size) {
+  size = (size > 0) ? size : 50;
+  var email = user.emails[0].address || '';
   var options = {
-    size: 50,
+    size: size,
     default: 'mm',
   }
   return Gravatar.imageUrl(email, options);

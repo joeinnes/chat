@@ -1,7 +1,7 @@
 /* jshint strict:false */
 /* globals Messages, Session, Template, ItemsIncrement */
 
-Template.messagelist.helpers({
+Template.user.helpers({
   messages: function () {
     return Messages.find({}, {
       sort: {
@@ -12,12 +12,30 @@ Template.messagelist.helpers({
   moreResults: function() {
     return !(Messages.find().count() < Session.get("itemsLimit"));
   },
+  avatar: function(size) {
+    var user = Users.findOne(userId);
+    if (user) {
+      return user.emails;
+  } else {
+    return userId;
+  }
+    size = (size > 0) ? size : 50;
+    var email = user.emails[0].address || '';
+    var options = {
+      size: size,
+      default: 'mm',
+    }
+    return Gravatar.imageUrl(email, options);
+  },
 });
 
-Template.messagelist.onCreated(function () {
+Template.user.onCreated(function () {
   var self = this;
   self.autorun(function () {
-    self.subscribe('messages', Session.get('currentChannel'), Session.get('itemsLimit'), {
+    self.subscribe('messages', 0, Session.get('itemsLimit'), Session.get('userview'), {
+      sort: {
+        createdAt: -1
+      }
     });
     var timer;
     $(window).blur(function () {

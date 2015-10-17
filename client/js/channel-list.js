@@ -54,10 +54,14 @@ Template.channellist.events({
 
   'click .subscribe-to-channel': function() {
     var channelId = this._id;
-    if (Meteor.user().profile.subscriptions.channels.indexOf(this._id) > -1) {
-      Meteor.call('removeSubscription', channelId, 'channel');
+    if( typeof Meteor.user().profile.subscriptions !== "undefined") {
+      if (Meteor.user().profile.subscriptions.channels.indexOf(this._id) > -1) {
+        Meteor.call('removeSubscription', channelId, 'channel');
+      } else {
+        Meteor.call('addSubscription', channelId, 'channel');
+      }
     } else {
-      Meteor.call('addSubscription', channelId, 'channel');
+        Meteor.call('addSubscription', channelId, 'channel');
     }
   },
 });
