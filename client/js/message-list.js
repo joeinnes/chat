@@ -9,7 +9,7 @@ Template.messagelist.helpers({
       }
     });
   },
-  moreResults: function() {
+  moreResults: function () {
     return !(Messages.find().count() < Session.get("itemsLimit"));
   },
 });
@@ -17,52 +17,62 @@ Template.messagelist.helpers({
 Template.messagelist.onCreated(function () {
   var self = this;
   self.autorun(function () {
-    self.subscribe('messages', Session.get('currentChannel'), Session.get('itemsLimit'), {
-    });
+    self.subscribe('messages', Session.get('currentChannel'), Session.get('itemsLimit'), {});
     var timer;
-    $(window).blur(function () {
-      var initialising = true;
-      Messages.observer = Messages.find({
-        channel: Session.get('currentChannel')
-      }).observe({
-        added: function (doc) {
-          if (!initialising) {
-            timer = window.setInterval(function() {
-              window.document.title = window.document.title == "Mokus" ? "New message..." : "Mokus";
-            }, 800);
-          }
-        }
-      });
-      initialising = false;
-    });
 
-    $(window).focus(function () {
-      if (Messages.observer) {
-        Messages.observer.stop(); // Call the stop
+    $(window).on("blur focus", function (e) {
+      var prevType = $(this).data("prevType");
+
+      if (prevType != e.type) { //  reduce double fire issues
+        switch (e.type) {
+        case "blur":
+          var initialising = true;
+          Messages.observer = Messages.find({
+            channel: Session.get('currentChannel')
+          }).observe({
+            added: function (doc) {
+              if (!initialising) {
+                timer = window.setInterval(function () {
+                  window.document.title = window.document.title == "Mokus" ? "New message..." : "Mokus";
+                }, 800);
+              }
+            }
+          });
+          initialising = false;
+          break;
+        case "focus":
+          if (Messages.observer) {
+            Messages.observer.stop(); // Call the stop
+          }
+          clearInterval(timer);
+          window.document.title = 'Mokus';
+          break;
+        }
       }
-      clearInterval(timer);
-      window.document.title = 'Mokus';
-    });
+
+      $(this).data("prevType", e.type);
+    })
   });
 });
 
 function showMoreVisible() {
-    var threshold, target = $("#showMoreResults");
-    if (!target.length) return;
+  var threshold, target = $("#showMoreResults");
+  if (!target.length) return;
 
-    threshold = $(window).scrollTop() + $(window).height() - target.height();
+  threshold = $(window).scrollTop() + $(window).height() - target.height();
 
-    if (target.offset().top < threshold) {
-        if (!target.data("visible")) {
-            target.data("visible", true);
-            Session.set("itemsLimit",
-                Session.get("itemsLimit") + ItemsIncrement);
-        }
-    } else {
-        if (target.data("visible")) {
-            target.data("visible", false);
-        }
+  if (target.offset().top < threshold) {
+    if (!target.data("visible")) {
+      target.data("visible", true);
+      Session.set("itemsLimit",
+        Session.get("itemsLimit") + ItemsIncrement);
     }
+  }
+  else {
+    if (target.data("visible")) {
+      target.data("visible", false);
+    }
+  }
 }
 
 // run the above func every time the user scrolls
