@@ -15,16 +15,33 @@ Meteor.methods({
     }
 
     if (!Channels.findOne({
-        channelName: channel
+        channelName: channel,
+        $or: [{
+          access: {
+            $in: [
+              Meteor.userId(),
+            ],
+          },
+        }, {
+          global: true,
+        }],
       })) {
       throw new Meteor.Error('channel-does-not-exist-or-you-are-not-authorised-to-use-it');
+    } else {
+      console.log(Channels.findOne({
+        channelName: channel
+      }));
     }
 
-    console.log('Inserting...');
+    var userObj = {};
+    userObj._id = Meteor.user()._id;
+    userObj.username = Meteor.user().username;
+    userObj.emails = Meteor.user().emails;
+
     Messages.insert({
       text: text,
       createdAt: new Date(),
-      createdBy: Meteor.user(),
+      createdBy: userObj,
       channel: channel,
     });
   },
@@ -199,6 +216,14 @@ Meteor.methods({
   addSubscription: function (id, channelOrUser) {
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-logged-in');
+    }
+
+    if (!Meteor.user().profile.subscriptions) {
+      Meteor.users.update(Meteor.userId(), {
+        $set: {
+          "profile.subscriptions": {},
+        }
+      });
     }
 
     if (channelOrUser === 'channel') {

@@ -1,0 +1,21 @@
+<template name="user">
+    {{#if Template.subscriptionsReady}}
+    <div class="ui card">
+        <div class="content">
+            <h1>{{user.username}}</h1>
+        </div>
+        <div class="image">
+            <img src={{avatarUrl user 250}} />
+        </div>
+    </div>
+
+    <div class="ui comments">
+        {{#each messages}} {{> message}} {{/each}}
+    </div>
+    {{#if moreResults}}
+    <div id="showMoreResults" style="margin-left: 25px;">
+        <span class="loading">Loading...</span>
+    </div>
+    {{/if}}
+    {{/if}}
+</template>

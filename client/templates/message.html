@@ -2,15 +2,15 @@
   {{#if Template.subscriptionsReady}}
   <div class="comment">
     <a class="avatar">
-      <img src="{{avatarUrl createdBy}}">
+      <img src="{{avatarUrl createdBy 50}}">
     </a>
     <div class="content">
-      <a class="author">
+      <a class="author" href="{{pathFor 'user' user=createdBy._id}}">
         {{createdBy.username}}
       </a>
       <div class="metadata">
         <div class="date">
-          {{createdAtTime createdAt}}{{#if edited}} - edited {{createdAtTime edited}}{{/if}}
+          {{createdAtTime createdAt}}{{#if edited}} - edited {{createdAtTime edited}}{{/if}}{{#if showChannel}} in <a href="{{pathFor 'channel' channel=channel}}">#{{channel}}</a>{{/if}}
         </div>
 
         {{#if usersOwn currentUser.username createdBy.username}}

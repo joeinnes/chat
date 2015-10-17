@@ -25,6 +25,19 @@ Router.route('/admin/:channel', function() {
   }
 );
 
+Router.route('/user/:user', function() {
+  Session.set('userview', this.params.user);
+  this.render('user');
+  }, {
+  name: 'user',
+  data: {
+    user: function() {
+    return Users.findOne(Session.get('userview'));
+    },
+  },
+  }
+);
+
 Router.route('/about', function() {
   this.render('about');
   }, {
