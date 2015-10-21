@@ -1,20 +1,31 @@
 Template.notifications.helpers({
   notifications: function() {
-    return Notifications.find({userId: Meteor.userId(), read: false});
+    return Notifications.find({fao: Meteor.userId(), read: false}, {sort: { 'message.createdAt': -1 }});
   },
   notificationCount: function(){
-    return Notifications.find({userId: Meteor.userId(), read: false}).count();
+    return Notifications.find({fao: Meteor.userId(), read: false}).count();
   }
 });
 
-Template.notification.helpers({
-  notificationPostPath: function() {
-    return Router.routes.postPage.path({_id: this.postId});
-  }
-})
-
 Template.notification.events({
-  'click a': function() {
-    Notifications.update(this._id, {$set: {read: true}});
-  }
-})
+  'click .dismiss': function() {
+    Meteor.call('readNotification', this._id);
+  },
+  'click .notification': function() {
+    Meteor.call('readNotification', this._id);
+  },
+  'click .dismissall': function() {
+    Meteor.call('readNotification', 'all');
+  },
+});
+
+Template.notifications.events({
+  'click .dismissall': function() {
+    Meteor.call('readNotification', 'all');
+  },
+});
+
+Template.notification.onCreated(function () {
+  $('.ui.dropdown.item').dropdown();
+});
+

@@ -7,7 +7,10 @@ Router.configure({
 
 Router.route('/', function() {
   this.redirect('/channel/general');
-});
+  }, {
+    name: 'home',
+  }
+);
 
 Router.route('/channel/:channel', function() {
   Session.set('currentChannel', this.params.channel);

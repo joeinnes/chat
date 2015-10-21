@@ -348,5 +348,18 @@ Meteor.methods({
      Notifications.insert(notification);
    }
 
+  },
+  readNotification: function(notificationId, channelOrUser) {
+
+    if (notificationId === 'all') {
+      Notifications.update({}, { $set: { read: true }}, {multi: true});
+    } else if (notificationId === 'channel') {
+      Notifications.update({'message.channel': channelOrUser}, { $set: { read: true }}, {multi: true});
+    } else if (notificationId === 'user') {
+      Notifications.update({'message.createdBy.id': channelOrUser}, { $set: { read: true }}, {multi: true});
+    } else {
+      Notifications.update({_id: notificationId}, { $set: { read: true }});
+    }
+
   }
 });

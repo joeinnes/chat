@@ -1,9 +1,12 @@
 <template name="header">
   <div id="navbar" class="ui small top inverted attached menu">
     <div class="header item">
-      <strong>Mokus</strong>
+      <strong><a href={{pathFor 'home'}} class="unstyled-links">Mokus</a></strong>
     </div>
     <div class="right menu">
+      <div class="item">
+        {{> notifications}}
+      </div>
       <div class="item">
         <a href={{pathFor 'about'}}>About</a>
       </div>

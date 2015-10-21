@@ -26,7 +26,7 @@ Template.messagelist.onCreated(function () {
       if (prevType != e.type) { //  reduce double fire issues
         switch (e.type) {
         case "blur":
-          var initialising = true;
+          /*var initialising = true;
           Messages.observer = Messages.find({
             channel: Session.get('currentChannel')
           }).observe({
@@ -38,12 +38,46 @@ Template.messagelist.onCreated(function () {
               }
             }
           });
+          initialising = false;*/
+         var initialising = true;
+         Notifications.observer = Notifications.find({
+            fao: Meteor.userId(),
+            read: false,
+          }).observe({
+            added: function (doc) {
+              timer = window.setInterval(function () {
+                window.document.title = window.document.title === "Mokus" ? "New notifications..." : "Mokus";
+              }, 500);
+            }
+          });
           initialising = false;
+
+          unreadNotifications = Notifications.find({fao: Meteor.userId(), read: false}).count();
+          if (unreadNotifications > 0) {
+
+          }
           break;
         case "focus":
-          if (Messages.observer) {
-            Messages.observer.stop(); // Call the stop
+          var initialising = true;
+         Notifications.observer = Notifications.find({
+            fao: Meteor.userId(),
+            read: false,
+          }).observe({
+            added: function (doc) {
+              if (!initialising) {
+                Meteor.call('readNotification', doc._id);
+              }
+            }
+          });
+          initialising = false;
+
+
+          if (Router.current().route.getName() ===  'channel') {
+            Meteor.call('readNotification', 'channel', Session.get('currentChannel'));
+          } else if (Router.current().route.getName() ===  'user') {
+            Meteor.call('readNotification', 'user', Session.get('userview'));
           }
+
           clearInterval(timer);
           window.document.title = 'Mokus';
           break;
