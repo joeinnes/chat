@@ -83,5 +83,5 @@ Meteor.publish('emojis', function () {
 });
 
 Meteor.publish('notifications', function() {
-  return Notifications.find();
+  return Notifications.find({fao: this.userId});
 });

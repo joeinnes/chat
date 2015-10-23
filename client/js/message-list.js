@@ -118,13 +118,9 @@ function notifyMe(doc) {
 
 FlashTitle = {
   start: function() {
-    FlashTitle.timer=window.setInterval(function() {
-      document.title = document.title == "Mokus" ? "New notification..." : "Mokus";
-    }, 1000);
+      document.title = "New notification...";
   },
   stop: function() {
-    document.title = "Mokus";
-    clearInterval(FlashTitle.timer);
+    document.title = 'Mokus';
   },
-  timer: '',
 }

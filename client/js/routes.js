@@ -15,6 +15,7 @@ Router.route('/', function() {
 Router.route('/channel/:channel', function() {
   Session.set('currentChannel', this.params.channel);
   this.render('room');
+  Meteor.call('readNotification', 'channel', Session.get('currentChannel'));
   }, {
     name: 'channel',
   }
@@ -31,6 +32,7 @@ Router.route('/admin/:channel', function() {
 Router.route('/user/:user', function() {
   Session.set('userview', this.params.user);
   this.render('user');
+  Meteor.call('readNotification', 'user', Session.get('userview'));
   }, {
   name: 'user',
   data: {
