@@ -17,6 +17,6 @@
 
 <template name="notification">
   <div class="item notification">
-    <strong><a href="{{pathFor 'user' user=message.createdBy._id}}" class="ui notification-links">{{message.createdBy.username}}</a></strong> posted in <a href="{{pathFor 'channel' channel=message.channel}}" class="channel_name ui notification-links">#{{message.channel}}</a> <a class="dismiss floated right"><i class="remove icon"></i></a>
+    <strong><a href="{{pathFor 'user' user=message.createdBy._id}}" class="ui notification-links">{{message.createdBy.username}}</a></strong> posted in <a href="{{pathFor 'channel' channel=message.channel}}" class="channel_name ui notification-links">#{{message.channel}}</a>
   </div>
 </template>
