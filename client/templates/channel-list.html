@@ -1,30 +1,30 @@
 <template name="channellist">
-{{#if Template.subscriptionsReady}}
-<div class="ui middle aligned list">
-  {{#each channels}}
-  <div class="item">
-    <div class="right floated middle aligned content">
-      <a class="subscribe-to-channel unstyled-links {{isSubscribed}}">
-        <i class="{{#if isSubscribed}}un{{/if}}hide outline icon"></i>
-      </a>
-      {{#if usersOwn this.createdBy currentUser._id}}
-      <a class="channel_name unstyled-links" href="{{pathFor 'admin' channel=channelName}}">
-        <i class="options icon"></i>
-      </a>
-      <a class="delete-channel unstyled-links">
-        <i class="trash outline icon"></i>
-      </a>
-      {{/if}}
-    </div>
-    <div class="middle aligned content">
-      <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
+  {{#if Template.subscriptionsReady}}
+  <ul class="collection">
+    {{#each channels}}
+    <li class="collection-item">
+      <div>
+        <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
           #{{channelName}}
-      </a>
-    </div>
-  </div>
-  {{/each}}
-
-  {{> channeladd}}
-</div>
-{{/if}}
+        </a>
+        <a class="secondary-content delete-channel unstyled-links">
+          <i class="material-icons">delete</i>
+        </a>
+        {{#if usersOwn this.createdBy currentUser._id}}
+        <a class="secondary-content channel_name unstyled-links" href="{{pathFor 'admin' channel=channelName}}">
+          <i class="material-icons">settings</i>
+        </a>
+        {{/if}}
+        <a class="secondary-content subscribe-to-channel unstyled-links {{isSubscribed}}">
+          {{#if isSubscribed}}
+            <i class="material-icons">volume_off</i>
+          {{else}}
+            <i class="material-icons">volume_up</i>
+          {{/if}}
+        </a>
+      </div>
+    </li>
+    {{/each}} {{> channeladd}}
+  </ul>
+  {{/if}}
 </template>

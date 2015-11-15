@@ -1,22 +1,26 @@
 <template name="notifications">
-  <div class="ui dropdown item">
-    Notifications  {{#if notificationCount}}
-    <a class="ui mini circular label">{{notificationCount}}</a>{{/if}}
-    <i class="dropdown icon"></i>
-    <div class="menu">
-      {{#if notificationCount}}
-        {{#each notifications}}
-          {{> notification}}
-        {{/each}}
-          <div class="item dismissall"><a class="ui notification-links">Mark all as read</a></div>
-      {{else}}
-      <a class="item">No Notifications</a> {{/if}}
-    </div>
-  </div>
-</template>
+  <li>
+    <a class="dropdown-button" href="#!" data-activates="notificationsdropdown">
+      Notifications {{#if notificationCount}}
+        <span class="new badge">
+          {{notificationCount}}
+        </span> {{/if}}
 
-<template name="notification">
-  <div class="item notification">
-    <strong><a href="{{pathFor 'user' user=message.createdBy._id}}" class="ui notification-links">{{message.createdBy.username}}</a></strong> posted in <a href="{{pathFor 'channel' channel=message.channel}}" class="channel_name ui notification-links">#{{message.channel}}</a>
-  </div>
+    <i class="material-icons right">arrow_drop_down</i>
+    </a>
+  </li>
+
+  <ul id="notificationsdropdown" class="dropdown-content">
+    {{#if notificationCount}} {{#each notifications}}
+    <li>
+      <strong><a href="{{pathFor 'user' user=message.createdBy._id}}" class="ui notification-links">{{message.createdBy.username}}</a></strong>      posted in <a href="{{pathFor 'channel' channel=message.channel}}" class="channel_name ui notification-links">#{{message.channel}}</a>      <span class="dismiss">&times;</span>
+    </li>
+    {{/each}}
+    <div class="item dismissall"><a class="notification-links">Mark all as read</a></div>
+    {{else}}
+    <li>
+      <a>No Notifications</a>
+    </li>
+    {{/if}}
+  </ul>
 </template>

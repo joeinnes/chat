@@ -1,10 +1,13 @@
 <template name="newmessage">
-  <form class="new-message ui form">
-    <div class="ui action input fluid">
-      <input type="text" name="text" placeholder="Hi {{currentUser.username}}..." autocomplete="off" />
-        <button class="ui icon button">
-        <i class="send icon"></i>
+  <form class="new-message">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea name="text" id="newmessage" class="materialize-textarea editable"></textarea>
+        <label for="newmessage">Hi {{currentUser.username}}...</label>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Send
+          <i class="material-icons right">send</i>
         </button>
+      </div>
     </div>
   </form>
 </template>

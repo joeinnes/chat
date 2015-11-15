@@ -13,11 +13,15 @@ Template.channellist.helpers({
     }
   },
   isSubscribed: function() {
-    if (Meteor.user().profile.subscriptions.channels.indexOf(this._id) > -1) {
-      return true;
-    } else {
-      return false;
+    if (Meteor.user().profile.hasOwnProperty('subscriptions')) {
+      if (Meteor.user().profile.subscriptions.hasOwnProperty('channels')) {
+        if (Meteor.user().profile.subscriptions.channels.indexOf(this._id) > -1) {
+          return true;
+        }
+      }
     }
+    
+    return false;
   }
 });
 

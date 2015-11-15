@@ -1,12 +1,9 @@
 <template name="editmessage">
   {{#if displayEditingWindow}}
     {{#with message id}}
-    <form class="editing-message ui form" id={{_id}} >
-      <div class="ui action input fluid">
-      <textarea name="editedText" class="editable">{{text}}</textarea>
-      <script>var editor = new MediumEditor('.editable', {
-        autoLink: true,
-      });</script>
+    <form class="editing-message" id={{_id}} >
+      <div class="input-field">
+      <textarea name="editedText" class="materialize-textarea">{{text}}</textarea>
       <button class="ui icon button cancel-edit-message" type="reset">
       <i class="cancel icon"></i>
       </button>

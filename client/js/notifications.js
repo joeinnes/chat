@@ -7,7 +7,7 @@ Template.notifications.helpers({
   }
 });
 
-Template.notification.events({
+Template.notifications.events({
   'click .dismiss': function() {
     Meteor.call('readNotification', this._id);
   },
@@ -19,13 +19,7 @@ Template.notification.events({
   },
 });
 
-Template.notifications.events({
-  'click .dismissall': function() {
-    Meteor.call('readNotification', 'all');
-  },
-});
-
-Template.notification.onCreated(function () {
-  $('.ui.dropdown.item').dropdown();
+Template.notifications.onRendered(function () {
+  $(".dropdown-button").dropdown();
 });
 

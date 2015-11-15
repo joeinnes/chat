@@ -1,26 +1,16 @@
 <template name="app">
-  <div class="ui stackable grid">
-    <div class="row">
-      <div class="sixteen wide column">
-        {{> header}}
-      </div>
+  {{> header}}
+  <div class="row">
+    <div class="col s12 m4">
+      {{> leftpane}}
     </div>
-    <div class="row">
-      <div class="one wide column"></div>
-      <div class="three wide column">
-        {{> leftpane}}
-      </div>
-      <div class="eleven wide column">
-        {{> mainpane}}
-      </div>
-      <div class="one wide column"></div>
+    <div class="col s12 m8">
+      {{> mainpane}}
     </div>
-    <div class="row">
-      <div class="one wide column"></div>
-      <div class="fourteen wide column">
-          {{> footer}}
-      </div>
-      <div class="one wide column"></div>
+  </div>
+  <div class="row">
+    <div class="s12">
+      {{> footer}}
     </div>
   </div>
 </template>

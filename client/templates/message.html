@@ -1,35 +1,36 @@
 <template name="message">
   {{#if Template.subscriptionsReady}}
-  <div class="comment">
-    <a class="avatar">
-      <img src="{{avatarUrl createdBy 50}}">
-    </a>
-    <div class="content">
-      <a class="author" href="{{pathFor 'user' user=createdBy._id}}">
-        {{createdBy.username}}
-      </a>
-      <div class="metadata">
-        <div class="date">
-          {{createdAtTime createdAt}}{{#if edited}} - edited {{createdAtTime edited}}{{/if}}{{#if showChannel}} in <a href="{{pathFor 'channel' channel=channel}}">#{{channel}}</a>{{/if}}
-        </div>
-
-        {{#if usersOwn currentUser.username createdBy.username}}
-        <div class="actions">
-          <a class="edit-message" id={{_id}}>Edit</a>
-          <a class="delete-message">Delete</a>
-        </div>
-        {{/if}}
+  <div class="card-panel">
+    <div class="row">
+      <div class="left col s2 center-align">
+        <img src="{{avatarUrl createdBy 200}}" alt="" class="circle responsive-img">
+        <strong>
+          <a class="author" href="{{pathFor 'user' user=createdBy._id}}">
+            {{createdBy.username}}
+          </a>
+        </strong>
       </div>
-      <div class="text">
-        {{#if editThis _id}}
-          {{> editmessage}}
-        {{else}}
-        {{#markdown}}{{#emoji}}{{emojiAliased text}}{{/emoji}}{{/markdown}}&nbsp;
-        {{/if}}
+      <div class="card-content col s10">
+        <div class="card-body">
+        <p>{{#if editThis _id}} {{> editmessage}} {{else}} {{#markdown}}{{#emoji}}{{emojiAliased text}}{{/emoji}}{{/markdown}}{{/if}}</p>
+        </div>
+        <div class="divider"></div>
+        <div class="card-actions">
+          <small>
+            <span class="date">
+              {{createdAtTime createdAt}}{{#if edited}} - edited {{createdAtTime edited}}{{/if}}{{#if showChannel}} in <a href="{{pathFor 'channel' channel=channel}}">#{{channel}}</a>{{/if}}
+            </span>
+            
+            {{#if usersOwn currentUser.username createdBy.username}}
+            <div class="right">
+                <a class="edit-message" id={{_id}}>Edit</a>
+                <a class="delete-message">Delete</a>
+            </div>
+            {{/if}}
+          </small>
+        </div>
       </div>
     </div>
   </div>
-  {{else}}
-  {{> loading}}
-  {{/if}}
+  {{else}} {{> loading}} {{/if}}
 </template>

@@ -1,16 +1,16 @@
 <template name="header">
-  <div id="navbar" class="ui small top inverted attached menu">
-    <div class="header item">
-      <strong><a href={{pathFor 'home'}} class="unstyled-links">Mokus</a></strong>
-    </div>
-    <div class="right menu">
-      <div class="item">
+  <nav>
+    <div class="nav-wrapper">
+      <a href={{pathFor 'home'}} class="brand-logo">Mokus</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
         {{> notifications}}
-      </div>
-      <div class="item">
-        <a href={{pathFor 'about'}}>About</a>
-      </div>
-      {{> loginButtons}}
+        <li>
+          <a href={{pathFor 'about'}}>About</a>
+        </li>
+        <li>
+          {{> atNavButton}}
+        </li>
+      </ul>
     </div>
-  </div>
+  </nav>
 </template>

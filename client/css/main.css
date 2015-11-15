@@ -70,7 +70,7 @@ img {
 }
 
 .avatar {
-  padding-right: 5px;
+  padding-right: 15px;
 }
 
 .emoji {
@@ -95,4 +95,17 @@ img {
 item > a.notification-links, a.notification-links:active, a.notification-links:visited, a.notification-links:hover {
   color: #000000;
   text-decoration: none;
+}
+
+.nav-wrapper {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.date {
+  color: #888888;
+}
+
+.card-content strong {
+  font-weight: bold;
 }

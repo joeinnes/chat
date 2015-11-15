@@ -1,17 +1,13 @@
 <template name="channeladd">
-  <div class="item">
-    <form class="new-channel ui form">
-      <div class="field">
-        <label>
+    <li class="collection-item">
+    <form class="new-channel">
+      <div class="input-field">
+        <i class="material-icons prefix">#</i>
+        <label for="name">
           New channel
         </label>
-        <div class="ui labeled input fluid">
-          <div class="ui label">
-            #
-          </div>
-          <input type="text" name="name" autocomplete="off" />
+        <input type="text" name="name" id="channel_name" autocomplete="off" />
         </div>
-      </div>
     </form>
-  </div>
+    </li>
 </template>
