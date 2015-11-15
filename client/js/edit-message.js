@@ -1,21 +1,19 @@
 /* jshint strict:false */
 /* globals Messages, Meteor, Session, Template */
 
-var editor = new MediumEditor('.editable');
-
 Template.editmessage.events({
   'submit .editing-message': function(event) {
     // Prevent default browser form submit
     event.preventDefault();
 
     // Get value from form element
-    var text = event.target.text.value;
+    var text = event.target.editedText.value;
     var id = event.target.id;
 
     Meteor.call('editMessage', id, text);
 
     // Clear form
-    event.target.text.value = '';
+    event.target.editedText.value = '';
     Session.set('editingId', '');
   },
   'click .cancel-edit-message': function() {
