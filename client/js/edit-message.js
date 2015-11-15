@@ -1,6 +1,8 @@
 /* jshint strict:false */
 /* globals Messages, Meteor, Session, Template */
 
+var editor = new MediumEditor('.editable');
+
 Template.editmessage.events({
   'submit .editing-message': function(event) {
     // Prevent default browser form submit

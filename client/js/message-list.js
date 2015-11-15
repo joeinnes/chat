@@ -101,6 +101,7 @@ function notifyMe(doc) {
   else if (Notification.permission === "granted") {
     // If it's okay let's create a notification
     var notification = new Notification("New notification", options);
+    setTimeout(notification.close.bind(notification), 5000);
     FlashTitle.start();
   }
 
@@ -110,6 +111,7 @@ function notifyMe(doc) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
         var notification = new Notification("New notification", options);
+        setTimeout(notification.close.bind(notification), 5000);
         FlashTitle.start();
       }
     });

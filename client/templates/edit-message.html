@@ -3,7 +3,7 @@
     {{#with message id}}
     <form class="editing-message ui form" id={{_id}} >
       <div class="ui action input fluid">
-      <input name="text" autocomplete="off" value={{text}} />
+      <div name="text" autocomplete="off" value={{text}} class="editable"></div>
       <button class="ui icon button cancel-edit-message" type="reset">
       <i class="cancel icon"></i>
       </button>
