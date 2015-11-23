@@ -1,10 +1,12 @@
 <template name="newmessage">
   <form class="new-message">
     <div class="row">
-      <div class="input-field col s12">
-        <textarea name="text" id="newmessage" class="materialize-textarea editable"></textarea>
+      <div class="input-field col s12 m10">
+        <textarea name="text" id="newmessage" class="materialize-textarea" rows="2"></textarea>
         <label for="newmessage">Hi {{currentUser.username}}...</label>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Send
+      </div>
+      <div class="input-field col s12 m2">
+        <button class="btn waves-effect waves-light grey" type="submit" name="action">Send
           <i class="material-icons right">send</i>
         </button>
       </div>

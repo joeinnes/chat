@@ -5,6 +5,14 @@ Router.configure({
   layoutTemplate: 'app',
 });
 
+Router.onBeforeAction(function() {
+  if (! Meteor.userId()) {
+    this.render('signup');
+  } else {
+    this.next();
+  }
+});
+
 Router.route('/', function() {
   this.redirect('/channel/general');
   }, {
@@ -43,9 +51,10 @@ Router.route('/user/:user', function() {
   }
 );
 
-Router.route('/about', function() {
-  this.render('about');
+Router.route('/register', function() {
+  this.render('signup');
+  console.log('Rendering signup');
   }, {
-    name: 'about',
+  name: 'signup',
   }
 );

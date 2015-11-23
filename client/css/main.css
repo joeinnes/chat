@@ -109,3 +109,30 @@ item > a.notification-links, a.notification-links:active, a.notification-links:v
 .card-content strong {
   font-weight: bold;
 }
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+} 
+
+h2 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-family: "Lato", sans-serif;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.tiny {
+  size: 0.6rem;
+}

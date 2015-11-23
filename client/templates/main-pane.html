@@ -1,11 +1,7 @@
 <template name="mainpane">
-  {{#if currentUser}}
-  {{> yield}}
-  {{else}}
     {{#if loggingIn}}
       {{> loading}}
     {{else}}
-      <p>You need to sign in.</p>
+      {{> yield}}
     {{/if}}
-  {{/if}}
 </template>

@@ -1,5 +1,32 @@
 <template name="channellist">
-  {{#if Template.subscriptionsReady}}
+  {{#if Template.subscriptionsReady}} {{#if isPhone}}
+  <ul class="side-nav" id="mobile-nav">
+    {{#each channels}}
+    <li>
+      
+        <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
+          #{{channelName}}
+        </a>
+        <!--<a class="secondary-content delete-channel unstyled-links">
+          <i class="material-icons">delete</i>
+        </a>
+        {{#if usersOwn this.createdBy currentUser._id}}
+        <a class="secondary-content channel_name unstyled-links" href="{{pathFor 'admin' channel=channelName}}">
+          <i class="material-icons">settings</i>
+        </a>
+        {{/if}}
+        <a class="secondary-content subscribe-to-channel unstyled-links {{isSubscribed}}">
+          {{#if isSubscribed}}
+            <i class="material-icons">volume_off</i>
+          {{else}}
+            <i class="material-icons">volume_up</i>
+          {{/if}}
+        </a>
+      -->
+    </li>
+    {{/each}} {{> channeladd}}
+  </ul>
+  {{else}}
   <ul class="collection">
     {{#each channels}}
     <li class="collection-item">
@@ -26,5 +53,5 @@
     </li>
     {{/each}} {{> channeladd}}
   </ul>
-  {{/if}}
+  {{/if}} {{/if}}
 </template>

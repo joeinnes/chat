@@ -1,16 +1,3 @@
-/* jshint strict:false */
-/* globals ItemsIncrement, ReactiveTimer, Accounts, Avatar */
-
-Accounts.ui.config({
-  passwordSignupFields: 'USERNAME_AND_EMAIL',
-});
-
-ItemsIncrement = 20;
-Session.setDefault('itemsLimit', ItemsIncrement);
-
-ReactiveTimer = new ReactiveTimer();
-ReactiveTimer.start(10);
-
 AccountsTemplates.configure({
     // Behavior
     confirmPassword: true,
@@ -39,25 +26,6 @@ AccountsTemplates.configure({
     // Redirects
     homeRoutePath: '/',
     redirectTimeout: 4000,
-
-    // Hooks
-    onLogoutHook: myLogoutFunc,
-    onSubmitHook: mySubmitFunc,
-    preSignUpHook: myPreSubmitFunc,
-
-    // Texts
-    texts: {
-      button: {
-          signUp: "Register Now!"
-      },
-      socialSignUp: "Register",
-      socialIcons: {
-          "meteor-developer": "fa fa-rocket"
-      },
-      title: {
-          forgotPwd: "Recover Your Password"
-      },
-    },
 });
 
 

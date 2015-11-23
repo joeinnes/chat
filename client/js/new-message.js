@@ -2,7 +2,7 @@
 /* globals Meteor, Session, Template */
 
 Template.newmessage.events({
-  'submit .new-message': function(event) {
+  'submit .new-message': function (event) {
     // Prevent default browser form submit
     event.preventDefault();
     console.log(event.target);
@@ -14,5 +14,5 @@ Template.newmessage.events({
 
     // Clear form
     event.target.text.value = '';
-  },
+  }
 });

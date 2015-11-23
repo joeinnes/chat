@@ -1,29 +1,15 @@
 <template name="mobilechannellist">
-    {{#if currentUser}} {{#if Template.subscriptionsReady}}
-    <div class="ui sidebar inverted vertical menu">
-        {{#each channels}}
-        <a class="item channel_name" href="{{pathFor 'channel' channel=channelName}}">
-             #{{channelName}}
+    <li>
+        <strong><a href="#!">Mokus</a></strong>
+    </li>
+    {{#each channels}}
+    <li>
+        <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
+          #{{channelName}}
         </a>
-        <!--<div>
-            {{#if usersOwn this.createdBy currentUser._id}}
-            <div class="right floated middle aligned content">
-                <a class="channel_name unstyled-links" href="{{pathFor 'admin' channel=channelName}}">
-                    <i class="options icon"></i>
-                </a>
-                <a class="delete-channel unstyled-links">
-                    <i class="trash outline icon"></i>
-                </a>
-            </div>
-            {{/if}}
-            <div class="middle aligned content">
-                <a class="channel_name" href="{{pathFor 'channel' channel=channelName}}">
-                  #{{channelName}}
-              </a>
-            </div>
-        </div>-->
-        {{/each}}
-
-    </div>
-    {{/if}} {{/if}}
+    </li>
+    {{/each}}
+    <li>
+        {{> atNavButton}}
+    </li>
 </template>

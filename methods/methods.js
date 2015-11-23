@@ -361,5 +361,12 @@ Meteor.methods({
       Notifications.update({_id: notificationId}, { $set: { read: true }});
     }
 
+  },
+  userExists: function(username) {
+    if (Users.findOne({username: username})) {
+      return true;
+    } else {
+      return false;
+    }
   }
 });

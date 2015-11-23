@@ -1,6 +1,15 @@
 <template name="leftpane">
-  {{#if currentUser}}
-    <h1>Hi {{currentUser.username}}</h1>
+  {{#unless isPhone}}
+    {{#if currentUser}}
+      <h2>Hi {{currentUser.username}}</h2>
+      {{> channellist}}
+    {{else}}
+    <div>
+      <h2>Hi! You're new around here...</h2>
+      <p>Why don't you sign up for an account and start chatting?</p>
+    </div>
+    {{/if}}
+  {{else}}
     {{> channellist}}
-  {{/if}}
+  {{/unless}}
 </template>
