@@ -21,6 +21,13 @@ Template.message.helpers({
     // Add the :* as an alias for kissing_heart
     returnedText = returnedText.replace(/:\*/g, ":kissing_heart:");
     return returnedText;
+  },
+  showChannel: function(){
+    if (Router.current().route.getName() === 'user') {
+      return true;
+    } else {
+      return false;
+    }
   }
 });
 

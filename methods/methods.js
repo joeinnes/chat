@@ -15,18 +15,35 @@ Meteor.methods({
     }
 
     if (!Channels.findOne({
-        channelName: channel
+        channelName: channel,
+        $or: [{
+          access: {
+            $in: [
+              Meteor.userId(),
+            ],
+          },
+        }, {
+          global: true,
+        }],
       })) {
       throw new Meteor.Error('channel-does-not-exist-or-you-are-not-authorised-to-use-it');
     }
 
-    console.log('Inserting...');
-    Messages.insert({
+    var userObj = {};
+    userObj._id = Meteor.user()._id;
+    userObj.username = Meteor.user().username;
+    userObj.emails = Meteor.user().emails;
+
+    var message = {
       text: text,
       createdAt: new Date(),
-      createdBy: Meteor.user(),
+      createdBy: userObj,
       channel: channel,
-    });
+    };
+
+    Messages.insert(message);
+
+    Meteor.call('notifySubscribers', message);
   },
 
   addChannel: function (text) {
@@ -201,6 +218,14 @@ Meteor.methods({
       throw new Meteor.Error('not-logged-in');
     }
 
+    if (!Meteor.user().profile.subscriptions) {
+      Meteor.users.update(Meteor.userId(), {
+        $set: {
+          "profile.subscriptions": {},
+        }
+      });
+    }
+
     if (channelOrUser === 'channel') {
 
       if (Meteor.user().profile.subscriptions.channels instanceof Array) {
@@ -298,4 +323,43 @@ Meteor.methods({
       throw new Meteor.Error('not-valid-subscription-type');
     }
   },
+
+  notifySubscribers: function (message) {
+    var notification = {};
+    var subscribedToUser = [];
+    var subscribedToChannel = [];
+    var channelId = Channels.findOne({channelName: message.channel})._id;
+   // Find all users subscribed to this user and create an array of users to notify
+    subscribedToUser = Users.find({'profile.subscriptions.users': message.createdBy._id}, {fields: {id: 1}}).fetch();
+
+   // Find all users subscribed to this channel and create an array of users to notify
+    subscribedToChannel = Users.find({'profile.subscriptions.channels': channelId}, {fields: {id:1}}).fetch();
+
+    var subscribedUsers = subscribedToUser.concat(subscribedToChannel);
+
+   // Iterate through the array and insert a notification for each user
+
+   for (var i = 0; i < subscribedUsers.length; i++) {
+    notification = {
+       fao: subscribedUsers[i]._id,
+       read: false,
+       message: message,
+     };
+     Notifications.insert(notification);
+   }
+
+  },
+  readNotification: function(notificationId, channelOrUser) {
+
+    if (notificationId === 'all') {
+      Notifications.update({}, { $set: { read: true }}, {multi: true});
+    } else if (notificationId === 'channel') {
+      Notifications.update({'message.channel': channelOrUser}, { $set: { read: true }}, {multi: true});
+    } else if (notificationId === 'user') {
+      Notifications.update({'message.createdBy.id': channelOrUser}, { $set: { read: true }}, {multi: true});
+    } else {
+      Notifications.update({_id: notificationId}, { $set: { read: true }});
+    }
+
+  }
 });

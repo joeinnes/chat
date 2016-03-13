@@ -87,3 +87,12 @@ img {
   line-height: normal;
   vertical-align: middle;
 }
+
+.ui.dropdown.item {
+  padding: 0px;
+}
+
+item > a.notification-links, a.notification-links:active, a.notification-links:visited, a.notification-links:hover {
+  color: #000000;
+  text-decoration: none;
+}

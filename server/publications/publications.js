@@ -1,9 +1,11 @@
 /* jshint strict:false */
 /* globals Meteor, Messages, Channels, Users, Emojis */
 
-Meteor.publish('messages', function (channel, limit) {
+Meteor.publish('messages', function (channel, limit, user) {
+
   var userId = this.userId;
   var authorisedChannels = [];
+  var selector = {};
   Channels.find({
     $or: [{
       global: true
@@ -18,15 +20,35 @@ Meteor.publish('messages', function (channel, limit) {
     authorisedChannels.push(doc.channelName);
   });
 
-  if (authorisedChannels.indexOf(channel) > -1) {
-
+  if (channel !== 0) {
+    selector = {
+      $and: [{
+        channel: {
+          $in: authorisedChannels,
+        }
+      }, {
+        channel: channel,
+      }],
+    };
   }
-  var selector = {
-    channel: {
-      $in: authorisedChannels
+  else {
+    selector = {
+      $and: [{
+        channel: {
+          $in: authorisedChannels,
+        }
+      }, {
+        'createdBy._id': user
+      }]
+    };
+  }
+
+  return Messages.find(selector, {
+    limit: limit,
+    sort: {
+      createdAt: -1
     }
-  };
-  return Messages.find(selector, {limit: limit, sort: {createdAt: -1}});
+  });
 });
 
 Meteor.publish('channels', function () {
@@ -49,7 +71,7 @@ Meteor.publish('users', function () {
     fields: {
       username: 1,
       _id: 1,
-      email: 1,
+      emails: 1,
     },
   });
 });
@@ -58,4 +80,8 @@ Meteor.publish('emojis', function () {
   // Here you can choose to publish a subset of all emojis
   // if you'd like to.
   return Emojis.find();
+});
+
+Meteor.publish('notifications', function() {
+  return Notifications.find({fao: this.userId});
 });
