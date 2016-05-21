@@ -24,7 +24,7 @@
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
   // This is the same as the line below.
-  "app": "/Users/joe/Web Development/chat",
+  "app": "/Users/joe/Web Deve/mokus",
 
   // Configure environment
   // ROOT_URL must be set to your correct domain (https or http)
@@ -37,7 +37,7 @@
   // Before mup checks that, it will wait for the number of seconds configured below.
   "deployCheckWaitTime": 15,
 
-  // show a progress bar while uploading. 
+  // show a progress bar while uploading.
   // Make it false when you deploy using a CI box.
   "enableUploadProgressBar": true
 }
